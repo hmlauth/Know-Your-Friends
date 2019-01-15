@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HW Week 5 - Trivia Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap Links-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- CSS Styling -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Underwater Trivia</h1>
+    <button id="button">Start</button>
+    <div id="triviaGame-text"></div>
+    <div id="showResults-text"></div>
+</div>
+
+<script>
+
+// Define Global Variables
+var correctAnswers = 0;
+var incorrectAnswers = 0;
+var unansweredQuestions = 0;
+var number = 30;
+var intervalID;
+
+// Define Global Objects for questions to be accessed and added to HTML dynamically using jQuery
+var triviaGame = [
+    {
+        question: "What is my name?",
+        answers: {
+            a: "Hanna",
+            b: "Mary",
+            c: "Anne",
+        }
+        correctAnswer: "a"
+    },
+    {
+        question: "What shape is the earht?",
+        answers: {
+            a: "Square",
+            b: "Round",
+            c: "Oblong",
+            d: "Triangle",
+        }
+        correctAnswer: "c"
+    }
+];
+
+
+// Define Global Functions
+    // function buildQuiz()
+    function buildQuiz() {
+        // Clear Start button
+        $("button").html("");
+        // Put questions and possible answers on the page
+        $("triviaGame-text").html(
+            // html questions and answers
+        );
+        decrement();
+        
+    };
+
+    // function setInterval() which sets time of 30 seconds
+    function decrement() {
+        number--;
+        // Add class to button element
+        $("button").addClass("timer");
+
+        // Select time element to display decreasingly incremented number
+        $("timer").html("<h2> Time Remaing: " + number + "</h2>");
+        if (number === 0) {
+            // ...run the stop function
+            stop();
+            
+            // Clear timer text
+            $("timer").text("");
+            // Clear trivia game text
+            $("triviaGame-text").text("");
+            // Show results text in an unordered list. Include the functions which count the number of correct answers, incorrect answers, and unanswered questions.
+            $("showResults-text").html(
+                "<ul>" 
+                    "<li>Correct Answers: " + correctAnswer + getCorrectAnswers() + "</li>"
+                    "<li>Incorrect Answers: " + incorrectAnswer + getIncorrectAnswers() + "</li>"
+                    "<li>Unanswered Questions: " + unansweredQuestions + getUnansweredQuestions() + "</li>"
+                "</ul>")
+        };
+    };
+
+    // Stop function which clears timer interval
+    function stop() {
+        clearInterval(intervalID);
+    };
+
+    // getCorrectAnwers function
+    function getCorrectAnswers() {
+
+    };
+    // getIncorrectAnswers function 
+    function getIncorrectAnswers() {
+
+    };
+    // getUnansweredQuestions function
+    function getUnansweredQuestions() {
+
+    };
+
+// On click of Start button, call buildQuiz() 
+$("button").on("click", buildQuiz());
+</script>
+
+<script src="assets/javascript/app.js"></script>
+
+</body>
+</html>
