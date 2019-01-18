@@ -19,10 +19,9 @@
 <body>
 
 <div class="container">
-    <h1>Underwater Trivia</h1>
-    <button id="button">Start</button>
-    <div id="triviaGame-text"></div>
-    <div id="showResults-text"></div>
+    <h1>Friends Trivia</h1>
+    <button id="start-button">Start</button>
+    <div id="content-container"></div>
 </div>
 
 <script>
@@ -30,93 +29,164 @@
 // Define Global Variables
 var correctAnswers = 0;
 var incorrectAnswers = 0;
-var unansweredQuestions = 0;
+var unansweredQuestions = 10;
 var number = 30;
 var intervalID;
+var selectedAnswers = [];
 
 // Define Global Objects for questions to be accessed and added to HTML dynamically using jQuery
 var triviaGame = [
     {
-        question: "What is my name?",
-        answers: {
-            a: "Hanna",
-            b: "Mary",
-            c: "Anne",
-        }
-        correctAnswer: "a"
+        question: "What caused the fire in Phoebe and Rachel's apartment?",
+        answers: ["Rachel's hair straightener","Phoebe's candles","Rachel's hair curler","Phoebe's incense"],
+        correctAnswer: 0
     },
     {
-        question: "What shape is the earht?",
-        answers: {
-            a: "Square",
-            b: "Round",
-            c: "Oblong",
-            d: "Triangle",
-        }
-        correctAnswer: "c"
+        question: "What was the original name of the show?",
+        answers: ["Insomnia Cafe","Central Perk","Friends","The Coffee Shop"],
+        correctAnswer: 0
+    },
+    {
+        question: "What is the name of Joey's stuffed penguin?",
+        answers: ["Alisha May","Hugsy","Baby","Patty May"],
+        correctAnswer: 1
+    },
+    {
+        question: "What did Joey name is barcalounger?",
+        answers: ["Vida","Vita","Rosa","Rosita"],
+        correctAnswer: 3
+    },
+    {
+        question: "What band sings the opening credits song?",
+        answers: ["The Rembrandts","Fool's Garden","Revolver","Sunrise Avenue"],
+        correctAnswer: 0
+    },
+    {
+        question: "What is Phoebe's twin sister's name?",
+        answers: ["Pheobo Buffay","Ursula Buffay","Ulga Buffay"],
+        correctAnswer: 0
+    },
+    {
+        question: "How many categories for towels does Monica have?",
+        answers: ["5","20","13","11"],
+        correctAnswer: 3
+    },
+    {
+        question: "Which highschool did Monica, Ross and Rachel attend?",
+        answers: ["Lincoln High School","Roosevelt High School","Washington High School","Einstein High School"],
+        correctAnswer: 0
+    },
+    {
+        question: "What is Monica's biggest pet peeve?",
+        answers: ["Leaving shoes on the floor","Friends losing borrowed items","People who don't clean","Animals dressed as humans"],
+        correctAnswer: 3
+    },
+    {
+        question: "What is Chandler's job?",
+        answers: ["Data Analyst","Data Management Specialist","IT procurement manager","Copywriter"],
+        correctAnswer: 2
     }
 ];
 
-
 // Define Global Functions
-    // function buildQuiz()
-    function buildQuiz() {
-        // Clear Start button
-        $("button").html("");
-        // Put questions and possible answers on the page
-        $("triviaGame-text").html(
-            // html questions and answers
-        );
-        decrement();
-        
-    };
+$(document).ready(function() {
+// On click of Start button, create container to hold all trivia questions and answers. 
+$("#start-button").on("click", function() {
+    $("button").hide();
+    var triviaContainer = $("<div>");
+    triviaContainer.addClass("trivia-game-container");
+    triviaContainer.html("<h2>Good Luck!</h2>");
+    $("#content-container").append(triviaContainer);
 
-    // function setInterval() which sets time of 30 seconds
-    function decrement() {
-        number--;
-        // Add class to button element
-        $("button").addClass("timer");
+    // Put questions and possible answers on the page
+        // BUILD QUESTIONS
+        for (var i = 0; triviaGame.length; i++) {
+            // Assign html element to variable which we will later append to respective html
+            var buildQuestions = $("<div>");
+            // Add id to buildQuestions div
+            buildQuestions.addClass("trivia-questions");
+            // Add class for styling
+            buildQuestions.addClass("trivia-questions-styling");
+            // Loop through triviaQuiz object to display questions
+            buildQuestions.text(triviaGame[i].question);
+            // Append content-container with buildQuestions div containing questions from triviaQuiz array.
+            triviaContainer.append(buildQuestions);
 
-        // Select time element to display decreasingly incremented number
-        $("timer").html("<h2> Time Remaing: " + number + "</h2>");
-        if (number === 0) {
-            // ...run the stop function
-            stop();
+            // BUILD ANSWERS
+            // Create div for answers to be contained within
+            var buildAnswers = $("<div>");
+            // Add id to buildAnswers div
+            buildAnswers.addClass("trivia-answers");
+            // Add class for styling
+            buildAnswers.addClass("trivia-answer-styling");
+            // Loop through triviaQUIZ array to display questions
+            buildAnswers.text(triviaGame[i].answers);
+            // Append content-container with buildAnswers div containing answers from triviaQuiz array
+            triviaContainer.append(buildAnswers);
+                
+                // ADD RADIO BUTTONS
+                // Create for loop that places radio buttons next to each of the possible answers
+                // for (var j = 0; j < triviaGame.answers[i]; j++) {
+                    
+                    // };
+        }
+    });
+
+    // function startQuiz() to put trivia questions on page.
+        // function startQuiz() {
+            // decrement();
+        // };
+    
+    // // Create function run() to clear intervalID so that prior to setting the new intervalId, it will not allow multiple instances. Note that decrement is the decrement function now being called as an argument by the setInterval. 
+    // function run() {
+    //   clearInterval(intervalId);
+    //   intervalId = setInterval(decrement, 1000);
+    // };
+
+    // // function setInterval() which sets time of 30 seconds
+    // function decrement() {
+    //     number--;
+    //     // Add class to button element
+    //     $("button").addClass("trivia-timer");
+
+    //     // Select time element to display decreasingly incremented number
+    //     $("#trivia-timer").html("<h2> Time Remaing: " + number + "</h2>");
+    //     if (number === 0) {
+    //         // ...run the stop function
+    //         stop();
             
-            // Clear timer text
-            $("timer").text("");
-            // Clear trivia game text
-            $("triviaGame-text").text("");
-            // Show results text in an unordered list. Include the functions which count the number of correct answers, incorrect answers, and unanswered questions.
-            $("showResults-text").html(
-                "<ul>" 
-                    "<li>Correct Answers: " + correctAnswer + getCorrectAnswers() + "</li>"
-                    "<li>Incorrect Answers: " + incorrectAnswer + getIncorrectAnswers() + "</li>"
-                    "<li>Unanswered Questions: " + unansweredQuestions + getUnansweredQuestions() + "</li>"
-                "</ul>")
-        };
-    };
+    //         // Show results text in an unordered list. Include the functions which count the number of correct answers, incorrect answers, and unanswered questions.
+    //         $("#show-results-text").html(
+    //             "<ul>" +
+    //                 "<li>Correct Answers: " + getCorrectAnswers() + "</li>" + 
+    //                 "<li>Incorrect Answers: " + getIncorrectAnswers() + "</li>" + 
+    //                 "<li>Unanswered Questions: " + getUnansweredQuestions() + "</li>" + 
+    //             "</ul>")
+    //     };
+    // };
 
-    // Stop function which clears timer interval
-    function stop() {
-        clearInterval(intervalID);
-    };
+    // // Stop function which clears timer interval
+    // function stop() {
+    //     clearInterval(intervalID);
+    //     // Clear timer text
+    //     $("#timer").text("");
+    //         // Clear trivia game text
+    //         $("#content-container").text("");
+    // };
 
-    // getCorrectAnwers function
-    function getCorrectAnswers() {
+    // // getCorrectAnwers function
+    // function getCorrectAnswers() {
 
-    };
-    // getIncorrectAnswers function 
-    function getIncorrectAnswers() {
+    // };
+    // // getIncorrectAnswers function 
+    // function getIncorrectAnswers() {
 
-    };
-    // getUnansweredQuestions function
-    function getUnansweredQuestions() {
+    // };
+    // // getUnansweredQuestions function
+    // function getUnansweredQuestions() {
 
-    };
+});
 
-// On click of Start button, call buildQuiz() 
-$("button").on("click", buildQuiz());
 </script>
 
 <script src="assets/javascript/app.js"></script>
