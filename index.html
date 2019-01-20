@@ -6,10 +6,10 @@
     <title>HW Week 5 - Trivia Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap Links-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
     <!-- CSS Styling -->
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <!-- jQuery -->
@@ -21,6 +21,7 @@
 <div class="container">
     <h1>Friends Trivia</h1>
     <button id="start-button">Start</button>
+    <div id="trivia-timer"></div>
     <div id="content-container"></div>
 </div>
 
@@ -30,8 +31,8 @@
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 var unansweredQuestions = 10;
-var number = 30;
-var intervalID;
+var number = 5;
+var intervalId;
 var selectedAnswers = [];
 
 // Define Global Objects for questions to be accessed and added to HTML dynamically using jQuery
@@ -100,7 +101,7 @@ $("#start-button").on("click", function() {
 
     // Put questions and possible answers on the page
         // BUILD QUESTIONS
-        for (var i = 0; triviaGame.length; i++) {
+        for (var i = 0; i < triviaGame.length; i++) {
             // Assign html element to variable which we will later append to respective html
             var buildQuestions = $("<div>");
             // Add id to buildQuestions div
@@ -120,40 +121,60 @@ $("#start-button").on("click", function() {
             // Add class for styling
             buildAnswers.addClass("trivia-answer-styling");
             // Loop through triviaQUIZ array to display questions
-            buildAnswers.text(triviaGame[i].answers);
+            // buildAnswers.text(triviaGame[i].answers);
             // Append content-container with buildAnswers div containing answers from triviaQuiz array
             triviaContainer.append(buildAnswers);
                 
                 // ADD RADIO BUTTONS
                 // Create for loop that places radio buttons next to each of the possible answers
-                // for (var j = 0; j < triviaGame.answers[i]; j++) {
-                    
-                    // };
-        }
+                console.log(triviaGame[i].answers);
+                for (var j = 0; j < triviaGame[i].answers.length; j++) { 
+                    var radioButton = $("<input type='radio'>" + triviaGame[i].answers[j] + "<br>");
+                    radioButton.attr("name", "group-" + i);
+                    console.log(radioButton)
+                    radioButton.text(triviaGame[i].answers[j]);
+                    $(triviaContainer).append(radioButton);
+                }
+        };
+        // Call decrement function
+        decrement();
+        console.log(decrement);
+
     });
 
-    // function startQuiz() to put trivia questions on page.
-        // function startQuiz() {
-            // decrement();
-        // };
+    // *** BUG FIX *** Create function run() to clear intervalId so that prior to setting the new intervalId, it will not allow multiple instances. Note that decrement is the decrement function now being called as an argument by the setInterval. 
+
+    // TIMER FUNCTIONS
+    function run() {
+      clearInterval(intervalId);
+      intervalId = setInterval(decrement, 1000);
+    };
     
-    // // Create function run() to clear intervalID so that prior to setting the new intervalId, it will not allow multiple instances. Note that decrement is the decrement function now being called as an argument by the setInterval. 
-    // function run() {
-    //   clearInterval(intervalId);
-    //   intervalId = setInterval(decrement, 1000);
-    // };
+        // function decrement() to start timer for game.
+            function decrement() {
+                number--;
+            // Pull trivia-timer div from HTML and assign it to a variable for future reference
+            var $triviaTimer = $("#trivia-timer");
+            // Insert HTML into $triviaTimer div to be displayed on page once the start button is clicked and decrement function called
+            $triviaTimer.html("<h2> Time Remaing: " + number + "</h2>");
+                //  Once number hits zero...
+                if (number === 0) {
 
-    // // function setInterval() which sets time of 30 seconds
-    // function decrement() {
-    //     number--;
-    //     // Add class to button element
-    //     $("button").addClass("trivia-timer");
+                    //  ...run the stop function.
+                    stop();
+                };   
+            };
 
-    //     // Select time element to display decreasingly incremented number
-    //     $("#trivia-timer").html("<h2> Time Remaing: " + number + "</h2>");
-    //     if (number === 0) {
-    //         // ...run the stop function
-    //         stop();
+            //  The stop function
+            function stop() {
+                //  Clears our intervalId
+                //  We just pass the name of the interval
+                //  to the clearInterval function.
+                clearInterval(intervalId);
+            };
+
+            //  Execute the run function.
+            run();
             
     //         // Show results text in an unordered list. Include the functions which count the number of correct answers, incorrect answers, and unanswered questions.
     //         $("#show-results-text").html(
@@ -167,7 +188,7 @@ $("#start-button").on("click", function() {
 
     // // Stop function which clears timer interval
     // function stop() {
-    //     clearInterval(intervalID);
+    //     clearInterval(intervalId);
     //     // Clear timer text
     //     $("#timer").text("");
     //         // Clear trivia game text
