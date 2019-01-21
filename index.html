@@ -31,7 +31,7 @@
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 var unansweredQuestions = 0;
-var number = 10;
+var number = 5;
 var intervalId;
 
 // Define Global ARRAY containing questions, answer choices, and correct answer index number, to be accessed and added to HTML dynamically using jQuery
@@ -195,20 +195,45 @@ $(document).ready(function() {
                     console.log("Unanswered Questions: " + unansweredQuestions);
                     console.log("Incorrect Answers: " + incorrectAnswers);
                     console.log("Correct Answers: " + correctAnswers);
-                    // Show results text in an unordered list. 
-            //         $("#show-results-text").html(
-            //             "<ul>" +
-            //                 "<li>Correct Answers: " + correctAnswers + "</li>" + 
-            //                 "<li>Incorrect Answers: " + incorrectAnswers + "</li>" + 
-            //                 "<li>Unanswered Questions: " + unansweredQuestions + "</li>" + 
-            //             "</ul>")
-            //     };
-            // };
+                    
+                    showResults();
+
                 };
 
-    
+                // showResults function
+                function showResults() {
+                    // Hide triviaContainer
+                    $("#content-container").hide();
+                    // Clear trivia-timer text
+                    $("#trivia-timer").text("");
+                    // Show results text in an unordered list. 
+                    var $showResults = $("#trivia-timer").html(
+                            "Correct Answers: " + correctAnswers + "<br>" +
+                            "Incorrect Answers: " + incorrectAnswers + "<br>" +
+                            "Unanswered Questions: " + unansweredQuestions + "<br>"); 
+                    $("#trivia-timer").addClass("show-results-text");
+                    $("#trivia-timer").append($showResults);
 
-});
+                    var $restartButton = $("<button>");
+                    $restartButton.addClass("restart-button");
+                    $restartButton.html("Try Again?");   
+                    $("#trivia-timer").append($restartButton); 
+
+                    var $friendsPhoto = $("<img>");
+                    $friendsPhoto.attr("src", "https://images-na.ssl-images-amazon.com/images/I/61isRml1qcL._SX425_.jpg"); 
+                    $(".container").append($friendsPhoto);
+                };
+            
+                // restartGame function
+//                 function restartGame() {
+//                     // Define Global Variables
+//                     correctAnswers = 0;
+//                     incorrectAnswers = 0;
+//                     unansweredQuestions = 0;
+//                     number = 5;
+//                     intervalId;
+//                 }
+// });
 
 </script>
 

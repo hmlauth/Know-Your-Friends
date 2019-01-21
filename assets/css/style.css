@@ -14,3 +14,15 @@ body {
 h2 {
     color: pink;
 }
+
+.restart-button, #start-button {
+    margin: 20px;
+    padding: 10px, 40px, 10px, 40px;
+    font-size: 20px;
+    background: pink;
+}
+
+.show-results-text {
+    color: rgb(0, 204, 255);
+    font-size: 20px;
+}
