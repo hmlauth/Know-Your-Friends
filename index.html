@@ -30,8 +30,8 @@
 // Define Global Variables
 var correctAnswers = 0;
 var incorrectAnswers = 0;
-var unansweredQuestions = 10;
-var number = 30;
+var unansweredQuestions = 0;
+var number = 10;
 var intervalId;
 
 // Define Global ARRAY containing questions, answer choices, and correct answer index number, to be accessed and added to HTML dynamically using jQuery
@@ -114,7 +114,7 @@ $(document).ready(function() {
                 buildQuestions.addClass("trivia-questions-styling");
                 // Loop through triviaQuiz object to display questions
                 buildQuestions.text(triviaGame[i].question);
-                // Append content-container with buildQuestions div containing questions from triviaQuiz array.
+                // Append content-container with buildQuestions div containing questions from trivia21Quiz array.
                 triviaContainer.append(buildQuestions);
 
                 // BUILD ANSWERS
@@ -133,7 +133,8 @@ $(document).ready(function() {
                     // Create for loop that places radio buttons next to each of the possible answers
                     for (var j = 0; j < triviaGame[i].answers.length; j++) { 
                         var radioButton = $("<input type='radio'>" + "  " + triviaGame[i].answers[j] + "<br>");
-                        radioButton.attr("name", "group-" + i);
+                        radioButton.attr("name", "group-"+i);
+                        radioButton.attr("value",j);
                         radioButton.text(triviaGame[i].answers[j]);
                         $(triviaContainer).append(radioButton);
                     }
@@ -159,43 +160,41 @@ $(document).ready(function() {
                     //  Once number hits zero...
                     if (number === 0) {
 
-                        //  ...run the stop function.
-                        stop();
-
                         // THEN CHECK RESULTS
                         // Create for loop that will iterate through each question of the triviaGame array
                         for (i = 0; i < triviaGame.length; i++) {
                             // Store the input value of the user's input into a variable. Previous addition of input attributes now show up as <input name="group-0" based on the index number of the triviaGame array
-                            console.log(triviaGame.length);
                             var buttonValue = $("input[name=group-" + i + "]:checked").val();
-                            console.log("Button Value: " + buttonValue);
+                            console.log("Index of buttonValue: " + buttonValue);
                             // store the index of the triviaGame we're iterating over into the currentTrivia variable
                             var currentTrivia = triviaGame[i];
-                            console.log(currentTrivia);
+                            console.log("Button Boolean: " + !buttonValue);
+    
                             // IF there is no buttonValue then increment unansweredQuestions by 1
-                            if (!buttonValue) {
+                             if (!buttonValue == true) {
                                 unansweredQuestions++;
                             // Else if the index of the buttonValue is the same as the index of the correct 
-                            } else if (buttonValue === currentTrivia[i].correctAnswer) {
+                            } else if (buttonValue == currentTrivia.correctAnswer) {
                                 correctAnswers++;
                                 } else {
                                 incorrectAnswers++;
-                                console.log("Unanswered Questions: " + unansweredQuestions);
-                                console.log("Incorrect Answers: " + incorrectAnswers);
-                                console.log("Correct Answers: " + correctAnswers);
                                 };
-                            };
+                           }
+            
+                        //  ...run the stop function.
+                        stop();
 
                     };   
-                };
-
+}
                 //  The stop function
                 function stop() {
                     //  Clears our intervalId
                     //  We just pass the name of the intervalId
                     //  to the clearInterval function.
                     clearInterval(intervalId);
-
+                    console.log("Unanswered Questions: " + unansweredQuestions);
+                    console.log("Incorrect Answers: " + incorrectAnswers);
+                    console.log("Correct Answers: " + correctAnswers);
                     // Show results text in an unordered list. 
             //         $("#show-results-text").html(
             //             "<ul>" +
