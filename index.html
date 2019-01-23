@@ -31,7 +31,7 @@
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 var unansweredQuestions = 0;
-var number = 5;
+var number = 30;
 var intervalId;
 
 // Define Global ARRAY containing questions, answer choices, and correct answer index number, to be accessed and added to HTML dynamically using jQuery
@@ -184,8 +184,9 @@ $(document).ready(function() {
                         //  ...run the stop function.
                         stop();
 
-                    };   
-}
+                        };   
+                    };
+
                 //  The stop function
                 function stop() {
                     //  Clears our intervalId
@@ -233,7 +234,7 @@ $(document).ready(function() {
 //                     number = 5;
 //                     intervalId;
 //                 }
-// });
+});
 
 </script>
 
