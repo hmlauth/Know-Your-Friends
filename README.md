@@ -13,6 +13,7 @@ Unsatisfied with my MVP, I studied other people's code and eventually landed on 
 ### Phase 3 <em>...in progress</em>
 1. Create new design for game to something of my own
 2. Add Friends theme song, "I'll be there for you," for user's to play or mute.
+3. Have different memes for correct an wrong answers and/or make the "correct" or "wrong" statements a bit more dynamic.
 
 ## The Tech Stuff
 - HTML5
