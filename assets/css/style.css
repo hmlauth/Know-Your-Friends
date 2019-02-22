@@ -1,10 +1,112 @@
-* {
+.answer-choice {
+    border: 1px solid black;
+    border-radius: 5%;
+    width: 40%;
+    color: black;
     text-align: center;
+    margin: 10px auto;
+    font-size: 20px;
+    background-color: white;
+    padding: 10px;
+}
+
+img {
+  max-height: 250px;
+  width: auto;
+}
+
+#answer-block {
+  text-align: center;
+
+}
+
+#question-block {
+  text-align: center;
+  font-weight: bold;
+}
+
+#reset {
+  visibility: visible;
 }
 
 body {
-    background-color: rgb(0, 0, 0);
+  background-image: url("../images/Friends.jpg");
+  background-size: cover;
+  font-family: 'Karla', sans-serif;
+  display: flex;
+}
+
+h1 {
+  text-align: center;
+  color: #403fd3;
+  font-weight: bolder;
+  padding: 20px;
+  font-size: 45px;
+}
+
+p {
+  margin: 10px;
+  font-weight: bold;
+  color: rgb(255, 83, 83);
+  font-size: 20px;
+}
+
+h3 {
+  color: white;
+}
+
+h2, h4 {
+  margin: 30px;
+  font-weight: bold;
+  color: white;
+}
+
+.container {
+  margin: 30px auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 5px solid #403fd3;
+  height: 500px;
+  width: 60%;
+  text-align: center;
+  padding: 0px;
+}
+
+/* .wrapper {
+  display: flex;
+  justify-content: center;
+} */
+
+.btn {
+  color: white;
+  background-color: #403fd3;
+  border-color: #403fd3;
+  width: 100%;
+  border-radius: 0%;
+}
+
+span {
+  font-style: italic;
+  color:  rgb(255, 38, 38);
+  font-family: 'Handlee', cursive;
+  font-size: 25px;
+}
+
+
+
+/* ================================================================= */
+/* * {
+    text-align: center;
+}
+
+h1 {
     color: white;
+}
+
+body {
+    background-image: url("https://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/8/33/friends_opening_titles.jpg?itok=tAhx_wlC");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 5px solid black;
 }
 
 .trivia-questions-styling {
@@ -26,3 +128,7 @@ h2 {
     color: rgb(0, 204, 255);
     font-size: 20px;
 }
+
+.trivia-game-container {
+    background: rgb(255, 255, 255, 0.6);
+} */
